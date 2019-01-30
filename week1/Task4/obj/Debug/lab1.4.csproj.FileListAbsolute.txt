@@ -1,0 +1,7 @@
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\bin\Debug\lab1.4.exe.config
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\bin\Debug\lab1.4.exe
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\bin\Debug\lab1.4.pdb
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\obj\Debug\lab1.4.csproj.CoreCompileInputs.cache
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\obj\Debug\lab1.4.exe
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\obj\Debug\lab1.4.pdb
+C:\Users\acer\Documents\CS\lab1.4\lab1.4\obj\Debug\lab1.4.csprojAssemblyReference.cache
