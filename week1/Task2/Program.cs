@@ -8,18 +8,23 @@ namespace Task2
     {
     class Student
     {
-        string name;
+        string name; //items of class
         string id;
-        int year;
-        public Student(string aname, string aid, int ayear)
+        int year = 2018;
+
+        public Student(string name, string id)    //constructor with two parameters 
         {
-            name = aname;
-            id = aid;
-            year = ++ayear;
+            this.name = name;  
+            this.id = id;
         }
-        public void Printing()
+        public void Printing()  //method, prints name and id
         {
-            Console.WriteLine(name + " " + id + " " + year);
+            Console.Write(name + " " + id + " ");  
+        }
+        public void Yearprint() //method, prints increment of year
+        {
+            year++;                 
+            Console.Write(year);
         }
     }
 
@@ -27,17 +32,10 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            // string[] s = Console.ReadLine().Split();
-            Student x = new Student("Yernar", "18BD111119", 2018);
-            /*string name = s[0];
-            string id = s[1];
-            int year = int.Parse(s[2]);*/
+            Student x = new Student("Yernar", "18BD111119"); //object
 
-            /* x.name = "Yernar";
-             x.id = "18BD111119";
-             x.year = int.Parse('2018');*/
-
-            x.Printing();
+            x.Printing(); //calling method
+            x.Yearprint();//calling method
             Console.ReadKey();
         }
     }
