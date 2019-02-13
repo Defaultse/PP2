@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab1._3
+namespace Task3
 {
     class Program
     {
+        private static void dublicating(string[] s, int n) // Method dublicate with 2 parameters
+        {
+            string[] ss = new string[n * 2];               //Making two times bigger array
+            for (int i = 0, j = 0; i < n; ++i)
+            {
+                ss[j++] = s[i];                            // Doubling
+                ss[j++] = s[i];
+            }
+            for (int i = 0; i < 2 * n; ++i)
+                Console.Write(ss[i] + " ");
+        }
         static void Main(string[] args)
         {
-            int n = int.Parse(Console.ReadLine());    //Giving a number to create a limited array 
-            int[] arr = new int[n];                   //Declaring a limited to n array 
-            string[] s = Console.ReadLine().Split(); //Another array, accepting data by splitting string
 
-            for (int i = 0; i < n; i++)                //array
-            {
-                arr[i] = int.Parse(s[i]);             //filling empty array(which was limited by n previously) by transforming string into integer
-                Console.Write(arr[i] + " " + arr[i] + " "); //printing out same number twice 
-            }
-            Console.ReadKey();
-
+            int n = int.Parse(Console.ReadLine());         // Reading integer n to limit array
+            string[] reading = Console.ReadLine().Split(); // reading second line an array of string by splitting them by space
+            dublicating(reading, n);                         // Calling a method
+            Console.ReadKey(); 
         }
     }
 }

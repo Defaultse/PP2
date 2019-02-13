@@ -1,38 +1,44 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Task3
-{
+{ 
     class Program
     {
-        static void Main()
+        static void Printspaces(int lvl)            //Find depth of directory(tree)
         {
-            DirectoryInfo directory = new DirectoryInfo(@"C:\Users\acer\Desktop\File\");
-            FileInfo[] files = directory.GetFiles();
+            for (int i = 0; i < lvl; i++)
+                Console.Write(" "); 
+        }
 
+        static void task(DirectoryInfo directory, int lvl)      //Method with 2 parameters
+        {
+            FileInfo[] files = directory.GetFiles();                
+            DirectoryInfo[] directories = directory.GetDirectories();
             foreach (FileInfo file in files)
             {
+                Printspaces(lvl);                           //Calling method to divide strings with space
                 Console.WriteLine(file.Name);
             }
-            Console.WriteLine();
-            DirectoryInfo[] directories = directory.GetDirectories();
-            foreach (DirectoryInfo dInfo in directories)
-            {
-                Console.WriteLine(dInfo.Name);
+
+            foreach (DirectoryInfo d in directories)          
+            { 
+                Printspaces(lvl);                             //Calling method to divide strings with space
+                Console.WriteLine(d.Name);
+                task(d, lvl + 4);                             //Calling again method task()- recursive
             }
+        }
+        
+        static void Main(string[] args)
+        {
+            DirectoryInfo d = new DirectoryInfo(@"C:\Users\acer\Desktop\File"); //Giving path 
+            task(d, 1);                                                         //Calling method task();
             Console.ReadKey();
         }
-       
-
-        static void PrintSpaces(int level)
-        {
-            for (int i = 0; i < level; i++)
-                Console.Write("  ");
-        }
-       
     }
 }
