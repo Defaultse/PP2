@@ -27,7 +27,7 @@ namespace FarManager2
             {
                 if (value < 0)
                 {
-                    selectedItem = Content.Length - 1;
+                    selectedItem = Content.Length-1;
                 }
                 else if (value >= Content.Length)
                 {
@@ -92,9 +92,11 @@ namespace FarManager2
                     case ConsoleKey.UpArrow:
                         history.Peek().SelectedItem--;
                         break;
+
                     case ConsoleKey.DownArrow:
                         history.Peek().SelectedItem++;
                         break;
+
                     case ConsoleKey.Enter:
                         int x = history.Peek().SelectedItem;                           //Goes further to the directory if it is type of directiry
                         FileSystemInfo fileSystemInfo = history.Peek().Content[x];
