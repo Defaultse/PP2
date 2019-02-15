@@ -9,15 +9,15 @@ namespace FarManager2
 {
     class Layer
     {
-        public FileSystemInfo[] Content
+        public FileSystemInfo[] Content                   //gives access to files
         {
             get;
             set;
         }
 
-        int selectedItem;
+        int selectedItem;                                 //Index of cursor
 
-        public int SelectedItem
+        public int SelectedItem                           //Determines on which index is still cursor
         {
             get
             {
@@ -40,7 +40,7 @@ namespace FarManager2
             }
         }
 
-        public void Draw()
+        public void Draw()                            //Method which prints names of irectories
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
@@ -59,7 +59,7 @@ namespace FarManager2
         }
     }
 
-    enum FarMode
+    enum FarMode                                    //оператор-перечисление /// gives a name to each constant
     {
         FileView,
         DirectoryView
@@ -70,21 +70,21 @@ namespace FarManager2
         static void Main(string[] args)
         {
             DirectoryInfo root = new DirectoryInfo(@"C:\Users\acer\Desktop\File");
-            Stack<Layer> history = new Stack<Layer>();
+            Stack<Layer> history = new Stack<Layer>();                       //Creating a Stack/Deque
             FarMode farMode = FarMode.DirectoryView;
 
-            history.Push(
+            history.Push(                //filling a stack 
                 new Layer
                 {
                     Content = root.GetFileSystemInfos(),
-                    SelectedItem = 0
+                   // SelectedItem = 0
                 });
 
-            while (true)
+            while (true)                                                     //Loop 
             {
-                if (farMode == FarMode.DirectoryView)
+                if (farMode == FarMode.DirectoryView) 
                 {
-                    history.Peek().Draw();
+                   history.Peek().Draw();                                   //Showing files
                 }
                 ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
                 switch (consoleKeyInfo.Key)
@@ -96,7 +96,7 @@ namespace FarManager2
                         history.Peek().SelectedItem++;
                         break;
                     case ConsoleKey.Enter:
-                        int x = history.Peek().SelectedItem;
+                        int x = history.Peek().SelectedItem;                           //Goes further to the directory if it is type of directiry
                         FileSystemInfo fileSystemInfo = history.Peek().Content[x];
                         if (fileSystemInfo.GetType() == typeof(DirectoryInfo))
                         {
@@ -105,8 +105,8 @@ namespace FarManager2
                         }
                         else
                         {
-                            farMode = FarMode.FileView;
-                            using (FileStream fs = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read))
+                            farMode = FarMode.FileView;                                         //IF it a document
+                            using (FileStream fs = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read)) //initializing new class to open txt file
                             {
                                 using (StreamReader sr = new StreamReader(fs))
                                 {
@@ -118,10 +118,11 @@ namespace FarManager2
                             }
                         }
                         break;
+
                     case ConsoleKey.Backspace:
                         if (farMode == FarMode.DirectoryView)
                         {
-                            history.Pop();
+                            history.Pop();  
                         }
                         else if (farMode == FarMode.FileView)
                         {
@@ -129,31 +130,7 @@ namespace FarManager2
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                         break;
-
-                   /* case ConsoleKey.R:
-                        int x = history.Peek().SelectedItem;
-                        FileSystemInfo fileSystemInfo = history.Peek().Content[x];
-                        if (fileSystemInfo.GetType() == typeof(DirectoryInfo))
-                        {
-                            DirectoryInfo d = fileSystemInfo as DirectoryInfo;
-                            history.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedItem = 0 });
-                        }
-                        else
-                        {
-                            farMode = FarMode.FileView;
-                            using (FileStream fs = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read))
-                            {
-                                using (StreamReader sr = new StreamReader(fs))
-                                {
-                                    Console.BackgroundColor = ConsoleColor.White;
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.Clear();
-                                    Console.WriteLine(sr.ReadToEnd());
-                                }
-                            }
-                        }
-                        break;*//////////////// Realise Renemaing files ..... Write new name :   >>>>>>   ReadLine();
-
+                        
                     case ConsoleKey.Delete:
                         int x2 = history.Peek().SelectedItem;
                         FileSystemInfo fileSystemInfo2 = history.Peek().Content[x2];

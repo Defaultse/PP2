@@ -1,141 +1,126 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Task1
+namespace FarManager2
 {
-    class FarManager
+    class Layer
     {
-        public int cursor;
-        public string path;
-        public int sz;
-        public bool ok;
-        DirectoryInfo directory = null;
-        FileSystemInfo currentFs = null;
-
-        public FarManager()
+        public FileSystemInfo[] Content                   //gives access to files
         {
-            cursor = 0;
+            get;
+            set;
         }
 
-        public FarManager(string path)
-        {
-            this.path = path;
-            cursor = 0;
-            directory = new DirectoryInfo(path);
-            sz = directory.GetFileSystemInfos().Length;
-            ok = true;
-        }
+        int selectedItem;                                 //Index of cursor
 
-        public void Color(FileSystemInfo fs, int index)
+        public int SelectedItem                           //Determines on which index is still cursor
         {
-            if (cursor == index)
+            get
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Red;
-                currentFs = fs;
+                return selectedItem;
             }
-            else if (fs.GetType() == typeof(DirectoryInfo))
+            set
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
+                if (value < 0)
+                {
+                    selectedItem = Content.Length - 1;
+                }
+                else if (value >= Content.Length)
+                {
+                    selectedItem = 0;
+                }
+                else
+                {
+                    selectedItem = value;
+                }
             }
         }
 
-        public void Show()
+        public void Draw()                            //Method which prints names of irectories
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
-            directory = new DirectoryInfo(path);
-            FileSystemInfo[] fs = directory.GetFileSystemInfos();
-            for (int i = 0, k = 0; i < fs.Length; i++)
+            for (int i = 0; i < Content.Length; ++i)
             {
-                if (ok == false && fs[i].Name[0] == '.')
+                if (i == SelectedItem)
                 {
-                    continue;
+                    Console.BackgroundColor = ConsoleColor.Red;
                 }
-                Color(fs[i], k);
-                Console.WriteLine(fs[i].Name);
-
-                k++;
-
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                Console.WriteLine(Content[i].Name);
             }
         }
-        public void Up()
-        {
-            cursor--;
-            if (cursor < 0)
-                cursor = sz - 1;
-        }
-        public void Down()
-        {
-            cursor++;
-            if (cursor == sz)
-                cursor = 0;
-        }
+    }
 
-        public void CalcSz()
-        {
-            directory = new DirectoryInfo(path);
-            FileSystemInfo[] fs = directory.GetFileSystemInfos();
-            sz = fs.Length;
-            if (ok == false)
-                for (int i = 0; i < fs.Length; i++)
-                    if (fs[i].Name[0] == '.')
-                        sz--;
-        }
-
-        public void Start()
-        {
-            ConsoleKeyInfo consoleKey = Console.ReadKey();
-            while (consoleKey.Key != ConsoleKey.Escape)
-            {
-                CalcSz();
-                Show();
-                consoleKey = Console.ReadKey();
-                if (consoleKey.Key == ConsoleKey.UpArrow)
-                    Up();
-                if (consoleKey.Key == ConsoleKey.DownArrow)
-                    Down();
-                if (consoleKey.Key == ConsoleKey.RightArrow)
-                {
-                    ok = false;
-                    cursor = 0;
-                }
-                if (consoleKey.Key == ConsoleKey.LeftArrow)
-                {
-                    cursor = 0;
-                    ok = true;
-                }
-                if (consoleKey.Key == ConsoleKey.Enter)
-                {
-                    if (currentFs.GetType() == typeof(DirectoryInfo))
-                    {
-                        cursor = 0;
-                        path = currentFs.FullName;
-                    }
-                }
-                if (consoleKey.Key == ConsoleKey.Backspace)
-                {
-                    cursor = 0;
-                    path = directory.Parent.FullName;
-                }
-            }
-        }
-
+    enum FarMode                                    //оператор-перечисление /// gives a name to each constant
+    {
+        FileView,
+        DirectoryView
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\acer\Desktop\File";
-            FarManager farManager = new FarManager(path);
-            farManager.Start();
+            DirectoryInfo root = new DirectoryInfo(@"C:\Users\acer\Desktop\File");
+            Stack<Layer> history = new Stack<Layer>();                       //Creating a Stack/Deque
+            FarMode farMode = FarMode.DirectoryView;
+
+            history.Push(                //filling a stack 
+                new Layer
+                {
+                    Content = root.GetFileSystemInfos(),
+                    // SelectedItem = 0
+                });
+
+            while (true)                                                     //Loop 
+            {
+                if (farMode == FarMode.DirectoryView)
+                {
+                    history.Peek().Draw();                                   //Showing files
+                }
+                ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+                switch (consoleKeyInfo.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        history.Peek().SelectedItem--;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        history.Peek().SelectedItem++;
+                        break;
+                    case ConsoleKey.Enter:
+                        int x = history.Peek().SelectedItem;                           //Goes further to the directory if it is type of directiry
+                        FileSystemInfo fileSystemInfo = history.Peek().Content[x];
+                        if (fileSystemInfo.GetType() == typeof(DirectoryInfo))
+                        {
+                            DirectoryInfo d = fileSystemInfo as DirectoryInfo;
+                            history.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedItem = 0 });
+                        }
+                        else
+                        {
+                            farMode = FarMode.FileView;                                         //IF it a document
+                            using (FileStream fs = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read)) //initializing new class to open txt file
+                            {
+                                using (StreamReader sr = new StreamReader(fs))
+                                {
+                                    Console.BackgroundColor = ConsoleColor.White;
+                                    Console.ForegroundColor = ConsoleColor.Black;
+                                    Console.Clear();
+                                    Console.WriteLine(sr.ReadToEnd());
+                                }
+                            }
+                        }
+                        break;
+                        
+                }
+            }
         }
     }
 }
