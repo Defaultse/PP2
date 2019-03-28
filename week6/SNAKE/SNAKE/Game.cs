@@ -16,7 +16,7 @@ namespace SNAKE
         public Snake snake;
         public Food food;
         public Wall wall;
-        //public speedofsnake speed;
+        public int speedofsnake = 200;
 
       //  XmlSerializer XMLSerialization = new XmlSerializer(typeof(Game));
 
@@ -72,15 +72,19 @@ namespace SNAKE
                     while (food.IsCollisionWithObject(snake) || food.IsCollisionWithObject(wall))
                         food.Generate();
 
-                    if (snake.body.Count % 5 == 0)
+                    if (snake.body.Count % 3 == 0)
+                    {
                         wall.NextLevel();
+                        speedofsnake = speedofsnake - 100;
+                    }
+                        
                 }
                 if (snake.IsCollisionWithObject(wall) ) 
                 {
                     isAlive = false; 
                 }
                 Draw();
-                Thread.Sleep(100);
+                Thread.Sleep(speedofsnake);
             }
         }
         public void Draw()

@@ -18,8 +18,10 @@ namespace SNAKE
             Random random = new Random();
             int x = random.Next(1, 25);
             int y = random.Next(1, 25);
-            body[0].x = x;
+            body[0].x = x;//Next points of food
+
             body[0].y = y;
+            
         }
     }
 }

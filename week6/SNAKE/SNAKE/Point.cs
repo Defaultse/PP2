@@ -15,9 +15,11 @@ namespace SNAKE
             
             this.x = x;
             this.y = y;
+
             
-            //Console.WriteLine(x+' '+y);
-            // Console.ReadKey();
+           // Console.WriteLine(x+" "+y); //Genrerates walls and some modifications with food
+
+            //Console.ReadKey();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,14 +55,14 @@ namespace SNAKE
 
         }
 
-        /* public void SaveXml(Snake snake, string filename)
+        /*public void SaveXml(Snake snake, string filename)
          {
 
              FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
 
              XmlSerializer xml = new XmlSerializer(typeof(Snake));
 
-             xml.Serialize(fs, snake);
+             xml.Serialize(fs, this);
 
              fs.Close();
          }*/

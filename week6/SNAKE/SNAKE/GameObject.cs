@@ -17,6 +17,7 @@ namespace SNAKE
             body = new List<Point>{
                 new Point(x, y)
             };
+            
             this.sign = sign;
             this.color = color;
             
@@ -28,7 +29,8 @@ namespace SNAKE
             Console.ForegroundColor = color;
             foreach(Point p in body)
             {
-                Console.SetCursorPosition(p.x, p.y);
+                Console.SetCursorPosition(p.x, p.y); //Everytime for every object
+      
                 Console.Write(sign);
             }
         }
