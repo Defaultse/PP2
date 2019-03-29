@@ -16,7 +16,7 @@ namespace XMLdeserialization
 
         public string GetInfo()
         {
-            return "name :" + this.name + ",age :" + this.age;
+            return this.name +" " + this.gpa + " " + this.year ;
         }
     }
     

@@ -24,7 +24,7 @@ namespace Xml_Serialization_and_Deserialization_V2
             PurchaseOrder order = new PurchaseOrder(address, "21.02.2019");
             order.OrderItems.Add(item1);
             order.OrderItems.Add(item2);
-         //   order.Save(order);
+           // order.Save(order);
             Console.WriteLine(address);
         }
 
@@ -39,6 +39,8 @@ namespace Xml_Serialization_and_Deserialization_V2
         static void Main(string[] args)
         {
             F2();
+            Console.ReadKey();
+
         }
 
     }

@@ -10,7 +10,7 @@ namespace Example2
 
         static void Main(string[] args)
         {
-            F2();
+            F1();
         }
 
         static void F1()

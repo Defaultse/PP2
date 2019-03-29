@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-namespace Task
+namespace Task2
 {
     [Serializable]
       public class Mark

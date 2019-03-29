@@ -24,8 +24,6 @@ namespace SNAKE
 
         public void Move()
         {
-
-
             for (int i = body.Count - 1; i > 0; i--)
             {
                body[i].x = body[i - 1].x;

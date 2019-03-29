@@ -7,12 +7,12 @@ namespace ConsoleApplication1
     {
         class myThread
         {
-            Thread thread;
+           
 
             public myThread(string name, int num) 
             {
-                thread = new Thread(func);
-                thread.Name = name;
+                Thread thread = new Thread(func);
+                thread.Name = name;                        //Naming thread
                 thread.Start(num);
             }
 

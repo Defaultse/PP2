@@ -19,6 +19,7 @@ namespace Xml_Serialization_and_Deserialization_V2
         {
             OrderItems = new List<OrderItem>();
         }
+
         public PurchaseOrder(Address address, string OrderDate)
         {
             this.address = address;

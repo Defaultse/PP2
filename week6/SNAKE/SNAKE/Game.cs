@@ -28,7 +28,7 @@ namespace SNAKE
             wall = new Wall('#', ConsoleColor.Green);
             wall.LoadLevel();
             while (food.IsCollisionWithObject(snake) || food.IsCollisionWithObject(wall))
-                food.Generate();
+                food.Generate(); 
 
             g_objects.Add(snake);
             g_objects.Add(food);
@@ -47,8 +47,10 @@ namespace SNAKE
 
                 while (isAlive && keyInfo.Key != ConsoleKey.Escape)
                 { 
-                keyInfo = Console.ReadKey();
+                    keyInfo = Console.ReadKey();
                     snake.ChangeDirection(keyInfo);
+                wall.ring();
+                
                 }
             
                 Console.Clear();
@@ -65,6 +67,7 @@ namespace SNAKE
         {
             while (isAlive)
             {
+                
                 snake.Move();
                 if (snake.IsCollisionWithObject(food))
                 {
@@ -88,7 +91,7 @@ namespace SNAKE
             }
         }
         public void Draw()
-        {     
+        {   
             Console.Clear(); 
             foreach (GameObject g in g_objects)
                 g.Draw();

@@ -11,6 +11,7 @@ namespace XmlSerialization
     {
         public string name;
         public int year;
+        [XmlIgnore]
         public double gpa;
 
         public Student()
@@ -30,7 +31,7 @@ namespace XmlSerialization
         static void Main(string[] args)
         {
             Student Yernar = new Student("Yernar", 17 , 4.0);
-            string filename = "shit.txt";
+            string filename = "shitty.txt";
             SaveXml(filename, Yernar);
                
         }

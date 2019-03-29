@@ -30,7 +30,6 @@ namespace SNAKE
             foreach(Point p in body)
             {
                 Console.SetCursorPosition(p.x, p.y); //Everytime for every object
-      
                 Console.Write(sign);
             }
         }

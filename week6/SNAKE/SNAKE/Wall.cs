@@ -24,19 +24,31 @@ namespace SNAKE
             Console.Write(sign);
             body = new List<Point>();
         }
-
+        public void ring()
+        {
+            for (int i = 0; i < 30; i++)
+            {
+                for (int j = 0; j < 80; j++)
+                {
+                    if (i == 30 || j == 80 || j == 30 || i == 80) Console.Write('#');
+                    else Console.Write(' ');
+                }
+            }
+        }
         public void LoadLevel()
         {
             body = new List<Point>();
-            string fileName = "level1.txt";
+            string fileName = "level11.txt";
             if (gameLevel == GameLevel.SECOND)
-                fileName = "level2.txt";
+                fileName = "level22.txt";
             if (gameLevel == GameLevel.THIRD)
                 fileName = "level3.txt";
 
             StreamReader sr = new StreamReader(fileName);
             string[] rows = sr.ReadToEnd().Split('\n');
 
+          
+             
             for (int i = 0; i < rows.Length; i++)
                 for (int j = 0; j < rows[i].Length; j++)
                     if (rows[i][j] == '#')

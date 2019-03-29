@@ -23,14 +23,14 @@ namespace Example1
             for (int i = 0; i < 10; i++)
             {
                 thread[i] = new Thread(PrintV);
-                thread[i].Name = i.ToString();
+               // thread[i].Name = i.ToString();
                 thread[i].Start();
             }
         }
 
         static void PrintV()
         {
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.Write(i);
                 Thread.Sleep(1000);
