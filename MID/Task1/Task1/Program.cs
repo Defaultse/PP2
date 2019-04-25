@@ -16,7 +16,6 @@ namespace Task1
         
         public Car()//For serialization
         {
-
         }
         public Car(string name, string mark, int yearOFRelease)
         {
@@ -24,10 +23,10 @@ namespace Task1
             this.mark = mark;
             this.yearOFRelease = yearOFRelease;
         }
-        public string GetInfo()
+        /*public string GetInfo()
         {
             return this.name + " " + this.mark + " " +this.yearOFRelease;
-        }
+        }*/
     }
     class Program
     {
@@ -49,16 +48,18 @@ namespace Task1
                 new Car("Name10","Mark10",2017)
             });
             string filename = "data.txt";
-            //SaveXml(filename,);
-            Car car = new Car();
-            car = LoadXml(filename);
-            Console.WriteLine(car.GetInfo());
-            Console.ReadKey();
+            FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write); 
+            XmlSerializer xml = new XmlSerializer(typeof(List<Car>));
+            xml.Serialize(fs, myLIst);
+            fs.Close();
 
 
+            // Car car = LoadXml(filename);
+            // Console.WriteLine(car.GetInfo());
+            // Console.ReadKey();
 
         }
-        static void SaveXml(string filename, Car car)
+        /*static void SaveXml(string filename, Car car)
         {
             FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
             XmlSerializer xml = new XmlSerializer(typeof(List<Car>));
@@ -66,14 +67,14 @@ namespace Task1
             fs.Close();
         }
 
-        static Car LoadXml(string filename)
+       static Car LoadXml(string filename)
         {
             FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             XmlSerializer xml = new XmlSerializer(typeof(List<Car>));
             Car car = xml.Deserialize(fs) as Car;
             fs.Close();
             return car;
-        }
+        }*/
 
     }
 }
