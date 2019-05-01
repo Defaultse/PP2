@@ -130,6 +130,17 @@ namespace WindowsFormsApp1
                 resultNumber = (int.Parse(resultNumber) + int.Parse(tempNumber)).ToString();
             if (operation == "-")
                 resultNumber = (int.Parse(resultNumber) - int.Parse(tempNumber)).ToString();
+            if (operation == "x!")
+                resultNumber = ToBin(resultNumber);
+        }
+        public string ToBin(string resultNumber)
+        {
+            string x;
+            int resultNumber2 = int.Parse(resultNumber);
+            x = ((resultNumber2 - 1).ToString());
+            return x;
+            
+            
         }
     }
 }

@@ -23,7 +23,16 @@ namespace Calculator
                 case "-":
                     result = first_number - second_number;
                     break;
+                case "x!":
+                    result = factorial(first_number);
+                    break; 
             }
+
+        }
+        public float factorial(float first_number)
+        {
+            result = first_number - 1;
+            return result;
         }
     }
 }

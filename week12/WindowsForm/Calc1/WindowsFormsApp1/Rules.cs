@@ -22,7 +22,7 @@ namespace WindowsFormsApp1
 
         public static bool IsOperation(String text)
         {
-            String[] digits = new String[] { "+", "-", "*", "/", "%" };
+            String[] digits = new String[] { "+", "-", "*", "/", "%", "X!", "ToBin" };
             return digits.Contains(text);
         }
 

@@ -20,10 +20,8 @@ namespace Calculator
         }
         
         private void numbers_click(object sender, EventArgs e)
-        {
-            
-            Button btn = sender as Button; // (Button) sender;
-           
+        {            
+            Button btn = sender as Button; // (Button) sender;           
             textBox1.Text += btn.Text;
         }
                
@@ -47,5 +45,6 @@ namespace Calculator
             calc = new CalcBase();
             textBox1.Text = "0";
         }
+        
     }
 }

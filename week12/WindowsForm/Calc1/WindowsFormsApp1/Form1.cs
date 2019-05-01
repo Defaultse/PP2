@@ -60,5 +60,6 @@ namespace WindowsFormsApp1
             Button btn = sender as Button;
             calculator.Process(btn.Text);
         }
+
     }
 }
