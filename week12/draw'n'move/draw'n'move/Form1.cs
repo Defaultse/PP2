@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Paint
+namespace draw_n_move
 {
     public partial class Form1 : Form
     {
         enum PaintTool
         {
-            PEN,
-            RECTANGLE,
-            ELLIPSE,
-            STAR,
-            ERASER,
-            TRIANGLE,
+            PEN,           
             SELECTIONTOOL,
             MOVE,
             FILL
@@ -77,7 +72,7 @@ namespace Paint
             }
         }
 
-        public void Move(int x, int y)   ///////////////////////////////////////////////////////////////////////////////// not change, move color
+        public new void Move(int x, int y)   
         {
             q = new Queue<Point>();
             q.Enqueue(new Point(x, y));
@@ -113,85 +108,9 @@ namespace Paint
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseClicked = false;
-            if (tool == PaintTool.RECTANGLE)
-            {
-                gBitmap.DrawRectangle(pen, GetRectangle(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.ELLIPSE)
-            {
-                gBitmap.DrawEllipse(pen, GetRectangle(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.STAR)
-            {
-                gBitmap.DrawPolygon(pen, GetPolygon(prevPoint, curPoint));
-
-            }
-            else if (tool == PaintTool.TRIANGLE)
-            {
-                gBitmap.DrawPolygon(pen, GetTriangle(prevPoint, curPoint));
-
-            }
-            else if (tool == PaintTool.SELECTIONTOOL)
-            {
-                gBitmap.DrawRectangle(pen, GetRectangle(prevPoint, curPoint));
-
-            }
-            else if (tool == PaintTool.MOVE)
-            {
-              //  gBitmap.
-            }
-
-        }
-        Point[] GetTriangle(Point prevPoint, Point curPoint)
-        {
-            int x1 = Math.Min(prevPoint.X, curPoint.X);
-            int y1 = Math.Min(prevPoint.Y, curPoint.Y);
-            int x2 = Math.Max(prevPoint.X, curPoint.X);
-            int y2 = Math.Max(prevPoint.Y, curPoint.Y);
-
-            return new Point[]
-            {
-                new Point(x1, y2),
-                new Point(x2, y2),
-                new Point(x1, (y1 + y2) / 2),            
-            };
-        }
-        Rectangle GetRectangle(Point prevPoint, Point curPoint)
-        {
-            int minX = Math.Min(prevPoint.X, curPoint.X);
-            int minY = Math.Min(prevPoint.Y, curPoint.Y);
-            int width = Math.Abs(prevPoint.X - curPoint.X);
-            int height = Math.Abs(prevPoint.Y - curPoint.Y);
-            return new Rectangle(minX, minY, width, height);
-        }
-
-        Rectangle GetRectangle2(Point prevPoint, Point curPoint)           //////////////// picturebox== area in rectangle , create moving rectangle , if mousedown fix picture on nextPoint 
-        {
-            int minX = Math.Min(prevPoint.X, curPoint.X);
-            int minY = Math.Min(prevPoint.Y, curPoint.Y);
-            int width = Math.Abs(prevPoint.X - curPoint.X);
-            int height = Math.Abs(prevPoint.Y - curPoint.Y);
-            return new Rectangle(minX, minY, width, height);
-        }
-
-        Point[] GetPolygon(Point prevPoint, Point curPoint)
-        {
-            int x1 = Math.Min(prevPoint.X, curPoint.X);
-            int y1 = Math.Min(prevPoint.Y, curPoint.Y);
-            int x2 = Math.Max(prevPoint.X, curPoint.X);
-            int y2 = Math.Max(prevPoint.Y, curPoint.Y);
-
-            return new Point[]
-            {
-                new Point(x1, y2),
-                new Point((x1 + x2) / 2, y1),
-                new Point(x2, y2),
-                new Point(x1, (y1 + y2) / 2),
-                new Point(x2, (y1 + y2) / 2)
-            };
-        }
-        
+            mouseClicked = false;    
+            
+        }    
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -213,43 +132,9 @@ namespace Paint
             tool = PaintTool.PEN;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            tool = PaintTool.RECTANGLE;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            tool = PaintTool.ELLIPSE;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            tool = PaintTool.STAR;
-        }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            if (tool == PaintTool.RECTANGLE)
-            {
-                e.Graphics.DrawRectangle(pen, GetRectangle(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.ELLIPSE)
-            {
-                e.Graphics.DrawEllipse(pen, GetRectangle(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.STAR)
-            {
-                e.Graphics.DrawPolygon(pen, GetPolygon(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.TRIANGLE)
-            {
-                e.Graphics.DrawPolygon(pen, GetTriangle(prevPoint, curPoint));
-            }
-            else if (tool == PaintTool.SELECTIONTOOL)
-            {
-                e.Graphics.DrawRectangle(pen, GetRectangle(prevPoint, curPoint));
-            }
 
         }
 
@@ -277,15 +162,6 @@ namespace Paint
             tool = PaintTool.FILL;
         }
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            tool = PaintTool.TRIANGLE;
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            tool = PaintTool.SELECTIONTOOL;
-        }
 
         private void button11_Click(object sender, EventArgs e)
         {
@@ -299,3 +175,4 @@ namespace Paint
 
     }
 }
+
