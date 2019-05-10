@@ -10,7 +10,7 @@ namespace Example2
 
         static void Main(string[] args)
         {
-            F1();
+            F2();
         }
 
         static void F1()
@@ -31,7 +31,7 @@ namespace Example2
                 k -= 10;
             }
         }
-        static void F2()
+        static void F2()                // randomly spawn
         {
             Thread thread = new Thread(Func);
             thread.Start();

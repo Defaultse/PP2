@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace SqliteDemo
+namespace Sql1
 {
-    
     class Database
     {
         public SQLiteConnection connection;
-
         public Database()
         {
-            string dbName = @"C:\Users\acer\Desktop\northwindEF.db";
-            connection = new SQLiteConnection(@"Data Source=" + dbName);
-            if (!File.Exists(dbName))
+            string path = @"C:\Users\acer\Desktop\intranet3.db";
+            connection = new SQLiteConnection("Data Source="+path);
+            if (!(File.Exists(path)))
             {
                 Console.WriteLine("Database created");
-                SQLiteConnection.CreateFile(dbName);
+                SQLiteConnection.CreateFile(path);
             }
         }
 

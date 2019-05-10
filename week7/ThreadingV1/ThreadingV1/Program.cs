@@ -7,7 +7,7 @@ namespace Example1
     {
         static void Main(string[] args)
         {
-            F2();
+            F1();
             Console.ReadKey();
         }
 
@@ -19,8 +19,8 @@ namespace Example1
 
         static void F1()
         {
-            Thread[] thread = new Thread[10];
-            for (int i = 0; i < 10; i++)
+            Thread[] thread = new Thread[10];     
+            for (int i = 0; i < 10; i++)               //repeated number mul.times and execute 
             {
                 thread[i] = new Thread(PrintV);
                // thread[i].Name = i.ToString();
